@@ -31,32 +31,41 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Avatar"
+        title = "Avatar"
         view.addSubview(scrollView)
+//        test()
         setupConstraits()
         
-        
+//
         DispatchQueue.main.async {
-            guard let UINavigationLargeTitleView = NSClassFromString("_UINavigationBarLargeTitleView") else { return }
-            
-            self.navigationController?.navigationBar.subviews.forEach { subview in
-                if subview.isKind(of: UINavigationLargeTitleView.self) {
-                    let viewAvatar = self.avatarImageView
-                    viewAvatar.clipsToBounds = true
-                    subview.addSubview(viewAvatar)
-                    viewAvatar.translatesAutoresizingMaskIntoConstraints = false
-                    
-                    NSLayoutConstraint.activate([
-                        viewAvatar.rightAnchor.constraint(equalTo: subview.rightAnchor, constant: -15),
-                        viewAvatar.bottomAnchor.constraint(equalTo: subview.bottomAnchor, constant: -12),
-                        viewAvatar.heightAnchor.constraint(equalToConstant: 36),
-                        viewAvatar.widthAnchor.constraint(equalToConstant: 36)
-                    ])
-                    
-                }
-            }
-            
+            self.test()
         }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        test()
+    }
+    
+    private func test() {
+        guard let UINavigationLargeTitleView = NSClassFromString("_UINavigationBarLargeTitleView") else { return }
+        guard let navigationController = self.navigationController else {return}
+        navigationController.navigationBar.subviews.forEach { subview in
+            if subview.isKind(of: UINavigationLargeTitleView.self) {
+                let viewAvatar = self.avatarImageView
+                viewAvatar.clipsToBounds = true
+                subview.addSubview(viewAvatar)
+                viewAvatar.translatesAutoresizingMaskIntoConstraints = false
+                
+                NSLayoutConstraint.activate([
+                    viewAvatar.rightAnchor.constraint(equalTo: subview.rightAnchor, constant: -15),
+                    viewAvatar.bottomAnchor.constraint(equalTo: subview.bottomAnchor, constant: -12),
+                    viewAvatar.heightAnchor.constraint(equalToConstant: 36),
+                    viewAvatar.widthAnchor.constraint(equalToConstant: 36)
+                ])
+                
+            }
+        }
+        
     }
     
     
